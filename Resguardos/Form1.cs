@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,8 +14,8 @@ namespace Resguardos
 {
     public partial class Form1 : Form
     {
-        private String versiontext = "10.5";
-        private String version = "10b3adf4529649ecb009c579e7713c8e";
+        private String versiontext = "10.6";
+        private String version = "4618ef42c393dc874982178721c5ddc0";
         public static String conexionsqllast = "server=148.223.153.37,5314; database=InfEq;User ID=eordazs;Password=Corpame*2013; integrated security = false ; MultipleActiveResultSets=True";
 
         public static String servivor = "148.223.153.43\\MSSQLSERVER1";
@@ -104,7 +105,7 @@ namespace Resguardos
         {
             if (e.Cancelled)
             {
-                Application.Exit();
+                System.Windows.Forms.Application.Exit();
             }
             pictureBox1.Visible = false;
             pictureBox1.Enabled = false;
@@ -277,14 +278,14 @@ namespace Resguardos
                         if (nwReader2["valor"].ToString() != version)
                         {
                             MessageBox.Show("No se puede inciar porque hay una nueva version.\n\nNueva Version: " + nwReader2["version"].ToString() + "\nVersion actual: " + versiontext + "\n\nEl programa se cerrara.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            Application.Exit();
+                            System.Windows.Forms.Application.Exit();
                             return;
                         }
                     }
                     else
                     {
                         MessageBox.Show("No se puede verificar la version del programa.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Application.Exit();
+                        System.Windows.Forms.Application.Exit();
                         return;
                     }
                 }
@@ -292,7 +293,7 @@ namespace Resguardos
             catch (Exception ex)
             {
                 MessageBox.Show("Error en validar la version del programa\n\nMensaje: " + ex.Message, "Información del Equipo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
+                System.Windows.Forms.Application.Exit();
                 return;
             }
         }
@@ -301,7 +302,7 @@ namespace Resguardos
         {
             if (e.Cancelled)
             {
-                Application.Exit();
+                System.Windows.Forms.Application.Exit();
             }
             pictureBox1.Visible = false;
             pictureBox1.Enabled = false;
@@ -315,6 +316,51 @@ namespace Resguardos
             menuStrip1.Visible = true;
             buscar.Visible = true;
             buscar.Focus();
+        }
+
+        void ExportarDataGridViewExcel(DataGridView grd)
+        {
+            using (SaveFileDialog fichero = new SaveFileDialog { Filter = @"Excel (*.xls)|*.xls", FileName=buscar.Text })
+            {
+                if (fichero.ShowDialog() == DialogResult.OK)
+                {
+                    Microsoft.Office.Interop.Excel.Application aplicacion = new Microsoft.Office.Interop.Excel.Application();
+                    Workbook librosTrabajo = aplicacion.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+                    Worksheet hojaTrabajo = (Worksheet)librosTrabajo.Worksheets.get_Item(1);
+                    int iCol = 0;
+                    foreach (DataGridViewColumn column in dataGridView1.Columns)
+                        if (column.Visible)
+                            hojaTrabajo.Cells[1, ++iCol] = column.HeaderText;
+                    for (int i = 0; i < grd.Rows.Count - 1; i++)
+                    {
+                        for (int j = 0; j < grd.Columns.Count; j++)
+                        {
+                            if (grd.Rows[i].Cells[j].Value is null)
+                            {
+                                hojaTrabajo.Cells[i + 2, j + 1] = "";
+                            }
+                            else
+                            {
+                                hojaTrabajo.Cells[i + 2, j + 1] = grd.Rows[i].Cells[j].Value.ToString();
+                            }
+                        }
+                    }
+                    librosTrabajo.SaveAs(fichero.FileName, XlFileFormat.xlWorkbookNormal,
+                                          System.Reflection.Missing.Value, System.Reflection.Missing.Value, false, false,
+                                          XlSaveAsAccessMode.xlShared, false, false,
+                                          System.Reflection.Missing.Value, System.Reflection.Missing.Value, System.Reflection.Missing.Value);
+                    aplicacion.Quit();
+                    MessageBox.Show("Resguardo Guardado.", "Resguardos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void exportarAExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrEmpty(buscar.Text))
+            {
+                ExportarDataGridViewExcel(dataGridView1);
+            }
         }
     }
 }

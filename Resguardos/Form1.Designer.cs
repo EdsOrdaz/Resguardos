@@ -47,6 +47,7 @@ namespace Resguardos
             this.historicoDeEquiposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.RevisarVersion = new System.ComponentModel.BackgroundWorker();
+            this.exportarAExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -168,7 +169,8 @@ namespace Resguardos
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.historicoDeEquiposToolStripMenuItem});
+            this.historicoDeEquiposToolStripMenuItem,
+            this.exportarAExcelToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1000, 24);
@@ -192,6 +194,14 @@ namespace Resguardos
             // 
             this.RevisarVersion.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RevisarVersion_DoWork);
             this.RevisarVersion.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.RevisarVersion_RunWorkerCompleted);
+            // 
+            // exportarAExcelToolStripMenuItem
+            // 
+            this.exportarAExcelToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.exportarAExcelToolStripMenuItem.Name = "exportarAExcelToolStripMenuItem";
+            this.exportarAExcelToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
+            this.exportarAExcelToolStripMenuItem.Text = "Exportar a Excel";
+            this.exportarAExcelToolStripMenuItem.Click += new System.EventHandler(this.exportarAExcelToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -239,6 +249,7 @@ namespace Resguardos
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.ComponentModel.BackgroundWorker RevisarVersion;
+        private System.Windows.Forms.ToolStripMenuItem exportarAExcelToolStripMenuItem;
     }
 }
 
