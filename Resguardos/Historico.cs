@@ -97,10 +97,7 @@ namespace Resguardos
                             }
                         }
                     }
-                    librosTrabajo.SaveAs(fichero.FileName, XlFileFormat.xlWorkbookNormal,
-                                          System.Reflection.Missing.Value, System.Reflection.Missing.Value, false, false,
-                                          XlSaveAsAccessMode.xlShared, false, false,
-                                          System.Reflection.Missing.Value, System.Reflection.Missing.Value, System.Reflection.Missing.Value);
+                    librosTrabajo.SaveAs(fichero.FileName, XlFileFormat.xlWorkbookNormal);
                     aplicacion.Quit();
                     MessageBox.Show("Resguardo Guardado.", "Resguardos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

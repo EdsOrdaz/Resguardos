@@ -14,8 +14,8 @@ namespace Resguardos
 {
     public partial class Form1 : Form
     {
-        private String versiontext = "10.6";
-        private String version = "4618ef42c393dc874982178721c5ddc0";
+        private String versiontext = "10.7";
+        private String version = "57a3270fd0b26eccc8571e8aea7f4610";
         public static String conexionsqllast = "server=148.223.153.37,5314; database=InfEq;User ID=eordazs;Password=Corpame*2013; integrated security = false ; MultipleActiveResultSets=True";
 
         public static String servivor = "148.223.153.43\\MSSQLSERVER1";
@@ -345,10 +345,7 @@ namespace Resguardos
                             }
                         }
                     }
-                    librosTrabajo.SaveAs(fichero.FileName, XlFileFormat.xlWorkbookNormal,
-                                          System.Reflection.Missing.Value, System.Reflection.Missing.Value, false, false,
-                                          XlSaveAsAccessMode.xlShared, false, false,
-                                          System.Reflection.Missing.Value, System.Reflection.Missing.Value, System.Reflection.Missing.Value);
+                    librosTrabajo.SaveAs(fichero.FileName, XlFileFormat.xlWorkbookNormal);
                     aplicacion.Quit();
                     MessageBox.Show("Resguardo Guardado.", "Resguardos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
