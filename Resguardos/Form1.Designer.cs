@@ -45,9 +45,9 @@ namespace Resguardos
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.historicoDeEquiposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.RevisarVersion = new System.ComponentModel.BackgroundWorker();
             this.exportarAExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RevisarVersion = new System.ComponentModel.BackgroundWorker();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -62,6 +62,7 @@ namespace Resguardos
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.Gainsboro;
@@ -84,6 +85,7 @@ namespace Resguardos
             this.nombre});
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(2, 48);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
@@ -159,7 +161,7 @@ namespace Resguardos
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Resguardos.Properties.Resources.load_save;
-            this.pictureBox1.Location = new System.Drawing.Point(361, 51);
+            this.pictureBox1.Location = new System.Drawing.Point(349, 51);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(268, 255);
             this.pictureBox1.TabIndex = 9;
@@ -185,16 +187,6 @@ namespace Resguardos
             this.historicoDeEquiposToolStripMenuItem.Text = "Historico de Equipos";
             this.historicoDeEquiposToolStripMenuItem.Click += new System.EventHandler(this.historicoDeEquiposToolStripMenuItem_Click);
             // 
-            // backgroundWorker2
-            // 
-            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
-            this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
-            // 
-            // RevisarVersion
-            // 
-            this.RevisarVersion.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RevisarVersion_DoWork);
-            this.RevisarVersion.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.RevisarVersion_RunWorkerCompleted);
-            // 
             // exportarAExcelToolStripMenuItem
             // 
             this.exportarAExcelToolStripMenuItem.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -203,11 +195,30 @@ namespace Resguardos
             this.exportarAExcelToolStripMenuItem.Text = "Exportar a Excel";
             this.exportarAExcelToolStripMenuItem.Click += new System.EventHandler(this.exportarAExcelToolStripMenuItem_Click);
             // 
+            // RevisarVersion
+            // 
+            this.RevisarVersion.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RevisarVersion_DoWork);
+            this.RevisarVersion.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.RevisarVersion_RunWorkerCompleted);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label2.Location = new System.Drawing.Point(252, 4);
+            this.label2.Name = "label2";
+            this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label2.Size = new System.Drawing.Size(749, 23);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "label2";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 376);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buscar);
@@ -247,9 +258,9 @@ namespace Resguardos
         private System.Windows.Forms.DataGridViewTextBoxColumn serie;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaasignacion;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.ComponentModel.BackgroundWorker RevisarVersion;
         private System.Windows.Forms.ToolStripMenuItem exportarAExcelToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
     }
 }
 

@@ -44,8 +44,11 @@ namespace Resguardos
             this.Buscar_Historico = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.exportarAExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -74,6 +77,7 @@ namespace Resguardos
             this.nombre});
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(1, 54);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
@@ -184,11 +188,26 @@ namespace Resguardos
             this.exportarAExcelToolStripMenuItem.Text = "Exportar a Excel";
             this.exportarAExcelToolStripMenuItem.Click += new System.EventHandler(this.exportarAExcelToolStripMenuItem_Click);
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Resguardos.Properties.Resources.load_save;
+            this.pictureBox1.Location = new System.Drawing.Point(332, 94);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(268, 255);
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
+            // 
             // Historico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(936, 382);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buscar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
@@ -205,6 +224,7 @@ namespace Resguardos
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,6 +235,11 @@ namespace Resguardos
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox buscar;
+        private System.ComponentModel.BackgroundWorker Buscar_Historico;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem exportarAExcelToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn economico;
         private System.Windows.Forms.DataGridViewTextBoxColumn marca;
@@ -222,8 +247,5 @@ namespace Resguardos
         private System.Windows.Forms.DataGridViewTextBoxColumn noserie;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaasignacion;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.ComponentModel.BackgroundWorker Buscar_Historico;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem exportarAExcelToolStripMenuItem;
     }
 }

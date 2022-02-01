@@ -19,7 +19,7 @@ namespace Resguardos
 
         private void Detalle_Historico_Load(object sender, EventArgs e)
         {
-            foreach (String[] activo in Form1.lista_historico)
+            foreach (String[] activo in Historico.lista)
             {
                 String mrid = activo[0].ToString().ToUpper();
                 if (mrid == Historico.rid)

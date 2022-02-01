@@ -14,8 +14,13 @@ namespace Resguardos
 {
     public partial class Form1 : Form
     {
-        private String versiontext = "10.7";
-        private String version = "57a3270fd0b26eccc8571e8aea7f4610";
+        /*
+         V10.7.1
+        - Se amplia la busqueda a todas las categorias
+        */
+
+        private String versiontext = "10.7.1";
+        private String version = "e32955e68c67c2be6bbc7567f3e9601f";
         public static String conexionsqllast = "server=148.223.153.37,5314; database=InfEq;User ID=eordazs;Password=Corpame*2013; integrated security = false ; MultipleActiveResultSets=True";
 
         public static String servivor = "148.223.153.43\\MSSQLSERVER1";
@@ -41,7 +46,7 @@ namespace Resguardos
             dataGridView1.Rows.Clear();
             menuStrip1.Visible = false;
             label1.Visible = false;
-
+            label2.Visible = false;
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.TransparencyKey = Color.Gray;
@@ -66,29 +71,41 @@ namespace Resguardos
                 using (SqlConnection conexion = new SqlConnection(nsql))
                 {
                     conexion.Open();
-                    SqlCommand comm = new SqlCommand("SELECT *  FROM [bd_SiRAc].[dbo].[LNJ_Equipos_Gilberto] where [No. Activo] LIKE '%" + buscar.Text.ToUpper() + "%' OR [No. Serie] LIKE '%" + buscar.Text.ToUpper() + "%' OR [Nombre de Resguardatario] LIKE '%" + buscar.Text.ToUpper() + "%'", conexion);
+                    SqlCommand comm = new SqlCommand("SELECT e.*, cg.marca, dt.modelo FROM [bd_SiRAc].[dbo].[LNJ_Equipos] e " +
+                        "INNER JOIN [bd_SiRAc].[dbo].[dt_equipo] dt ON dt.codigo=e.[No. Activo] " +
+                        "INNER JOIN [bd_SiRAc].[dbo].[LNJ_cg_equipo] cg ON dt.id_equipo=cg.id_equipo" +
+                        " where e.[No. Activo] LIKE '%" + buscar.Text.ToUpper() + "%' OR e.[No. Serie] LIKE '%" + buscar.Text.ToUpper() + "%' OR e.[Nombre de Resguardatario] LIKE '%" + buscar.Text.ToUpper() + "%'", conexion);
                     SqlDataReader nwReader = comm.ExecuteReader();
                     while (nwReader.Read())
                     {
-                        String[] n = new String[18]; 
-                        n[0] = nwReader["No. Activo"].ToString();
-                        n[1] = nwReader["Fecha SIRAC"].ToString();
-                        n[2] = nwReader["Categoría"].ToString();
-                        n[3] = nwReader["Subcategoría"].ToString();
-                        n[4] = nwReader["marca"].ToString();
-                        n[5] = nwReader["modelo"].ToString();
-                        n[6] = nwReader["No. Serie"].ToString();
-                        n[7] = nwReader["importe"].ToString();
-                        n[8] = nwReader["No. Factura"].ToString();
-                        n[9] = nwReader["Fecha Factura"].ToString();
-                        n[10] = nwReader["Ubicación"].ToString();
-                        n[11] = nwReader["No. Resguardatario"].ToString();
-                        n[12] = nwReader["Nombre de Resguardatario"].ToString();
-                        n[13] = nwReader["Empresa"].ToString();
-                        n[14] = nwReader["Centro de Costo"].ToString();
-                        n[15] = nwReader["Base"].ToString();
-                        n[16] = nwReader["Fecha Asignación"].ToString();
-                        n[17] = nwReader["Pedido Compra"].ToString();
+                        String[] n = new String[26]; 
+                        n[0] = nwReader["Categoría"].ToString();
+                        n[1] = nwReader["Subcategoría"].ToString();
+                        n[2] = nwReader["No. Parte"].ToString();
+                        n[3] = nwReader["medida"].ToString();
+                        n[4] = nwReader["No. Activo"].ToString();
+                        n[5] = nwReader["importe"].ToString();
+                        n[6] = nwReader["No. Factura"].ToString();
+                        n[7] = nwReader["Ubicación"].ToString();
+                        n[8] = nwReader["Num. Empleado"].ToString();
+                        n[9] = nwReader["Nombre de Resguardatario"].ToString();
+                        n[10] = nwReader["CC"].ToString();
+                        n[11] = nwReader["Observaciones"].ToString();
+                        n[12] = nwReader["Fecha Asignación"].ToString();
+                        n[13] = nwReader["capitalizable"].ToString();
+                        n[14] = nwReader["No. Serie"].ToString();
+                        n[15] = nwReader["Empresa Dueña"].ToString();
+                        n[16] = nwReader["Usuario Reg. Equipo"].ToString();
+                        n[17] = nwReader["Fecha Reg. Equipo"].ToString();
+                        n[18] = nwReader["Usuario Mod. Equipo"].ToString();
+                        n[19] = nwReader["Fecha Mod. Equipo"].ToString();
+                        n[20] = nwReader["Usuario Alta Resg."].ToString();
+                        n[21] = nwReader["Fecha Alta Resg."].ToString();
+                        n[22] = nwReader["Usuario Baja Resg."].ToString();
+                        n[23] = nwReader["Fecha Baja Resg."].ToString();
+                        n[24] = nwReader["marca"].ToString();
+                        n[25] = nwReader["modelo"].ToString();
+
                         lista.Add(n);
                     }
                 }
@@ -122,12 +139,13 @@ namespace Resguardos
 
             foreach (String[] activo in lista)
             {
-                String economico = activo[0].ToString().ToUpper();
-                String serie = activo[6].ToString().ToUpper();
-                String nombre = activo[12].ToString().ToUpper();
+                String economico = activo[4].ToString().ToUpper();
+                String serie = activo[14].ToString().ToUpper();
+                String nombre = activo[9].ToString().ToUpper();
+
                 if (economico.Contains(buscar.Text.ToUpper()) || serie.Contains(buscar.Text.ToUpper()) || nombre.Contains(buscar.Text.ToUpper()))
                 {
-                    dataGridView1.Rows.Add(activo[0], activo[3], activo[4], activo[5], activo[6], activo[16], activo[12]);
+                    dataGridView1.Rows.Add(activo[4], activo[1], activo[24], activo[25], activo[14], activo[12], activo[9]);
                 }
             }
         }
@@ -153,6 +171,7 @@ namespace Resguardos
                         pictureBox1.Enabled = true;
                         pictureBox1.BringToFront();
                         pictureBox1.Visible = true;
+                        label2.Visible = false;
                         backgroundWorker1.RunWorkerAsync();
                     }
                 }
@@ -161,17 +180,8 @@ namespace Resguardos
 
         private void historicoDeEquiposToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (backgroundWorker2.IsBusy != true)
-            {
-                label1.Visible = false;
-                buscar.Visible = false;
-                dataGridView1.Visible = false;
-                pictureBox1.Enabled = true;
-                pictureBox1.BringToFront();
-                pictureBox1.Visible = true;
-                menuStrip1.Visible = false;
-                backgroundWorker2.RunWorkerAsync();
-            }
+            Historico historico = new Historico();
+            historico.ShowDialog();
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -188,72 +198,9 @@ namespace Resguardos
         {
             if (e.RowIndex != -1)
             {
+                label2.Visible = true;
+                label2.Text = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
                 Clipboard.SetText(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
-            }
-        }
-
-        private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            pictureBox1.Visible = false;
-            pictureBox1.Enabled = false;
-            dataGridView1.Visible = true;
-            label1.Visible = true;
-            menuStrip1.Visible = true;
-            buscar.Visible = true;
-
-            Historico historico = new Historico();
-            historico.ShowDialog();
-
-            buscar.Focus();
-        }
-
-        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
-        {
-            //Actualizar lista de historico de equipos
-
-            if (!lista_historico.Any())
-            {
-                try
-                {
-                    using (SqlConnection conexion = new SqlConnection(nsql))
-                    {
-                        conexion.Open();
-                        SqlCommand comm = new SqlCommand("SELECT r.id_ms_resguardo, CGE.marca AS 'Marca', CGE.descripcion AS 'Descripcion', DTE.codigo as 'Num Economico', DTE.modelo as 'Modelo', DTE.no_serie as 'Num de Serie', EMP.nombre+' '+EMP.ap_paterno+' '+EMP.ap_materno AS 'Resguardado a', R.fecha_alta as 'Fecha de asignacion', EMPASIG.nombre+' '+EMPASIG.ap_paterno+' '+EMPASIG.ap_materno as 'Usuario que lo asigno', R.fecha_baja AS 'Fecha de desasignacion', EMPDESASIG.nombre+' '+EMPDESASIG.ap_paterno+' '+EMPDESASIG.ap_materno as 'Usuario que lo desasigno', R.obs AS 'Obs de resguardo', DTE.empresa_dueña as 'Empresa Dueña', UBI.descripcion AS 'Ubicacion', DTE.status AS 'Estatus del equipo',  DTE.fecha_reg AS 'Fecha de registro', EMPLEADOREGISTRO.nombre+' '+EMPLEADOREGISTRO.ap_paterno+' '+EMPLEADOREGISTRO.ap_materno AS 'Empleado que registro el equipo', DTE.pedido_compra AS 'Pedido de compra', DTE.fecha_baja AS 'Fecha de baja del equipo', EMPLEADOBAJA.nombre+' '+EMPLEADOBAJA.ap_paterno+' '+EMPLEADOBAJA.ap_materno AS 'Empleado que dio de baja el equipo', DTE.obsBaja AS 'Observaciones de Baja', DTE.obs_ti AS 'Observaciones de Sistemas'  FROM [bd_SiRAc].[dbo].[ms_resguardo] R FULL JOIN [bd_SiRAc].[dbo].[dt_equipo] DTE ON R.id_dt_equipo=DTE.id_dt_equipo FULL JOIN [bd_Empleado].[dbo].[cg_empleado] EMP ON R.id_empleado=EMP.id_empleado FULL JOIN [bd_SiRAc].[dbo].[cg_ubicacion] UBI ON DTE.id_ubicacion=UBI.id_ubicacion FULL JOIN [bd_SiRAc].[dbo].[cg_usuario] USUREGISTRO ON DTE.id_usr_reg=USUREGISTRO.id_usuario FULL JOIN [bd_Empleado].[dbo].[cg_empleado] EMPLEADOREGISTRO ON USUREGISTRO.id_empleado=EMPLEADOREGISTRO.id_empleado FULL JOIN [bd_SiRAc].[dbo].[cg_usuario] USUBAJA ON DTE.id_usr_baja=USUBAJA.id_usuario FULL JOIN [bd_Empleado].[dbo].[cg_empleado] EMPLEADOBAJA ON USUBAJA.id_empleado=EMPLEADOBAJA.id_empleado INNER JOIN [bd_SiRAc].[dbo].[cg_usuario] US ON R.id_usr_alta=US.id_usuario INNER JOIN [bd_Empleado].[dbo].[cg_empleado] EMPASIG on us.id_empleado=EMPASIG.id_empleado FULL JOIN [bd_SiRAc].[dbo].[cg_usuario] USDES ON R.id_usr_baja=USDES.id_usuario FULL JOIN [bd_Empleado].[dbo].[cg_empleado] EMPDESASIG on USDES.id_empleado=EMPDESASIG.id_empleado  INNER JOIN [bd_SiRAc].[dbo].[cg_equipo] CGEQ ON CGEQ.id_equipo=DTE.id_equipo INNER JOIN [bd_SiRAc].[dbo].[cg_categoria] CAT ON CAT.id_categoria=CGEQ.id_categoria  INNER JOIN [bd_SiRAc].[dbo].[cg_equipo] CGE ON DTE.id_equipo=CGE.id_equipo  where CAT.id_categoria=5 ORDER BY [Fecha de asignacion] DESC", conexion);
-                        SqlDataReader nwReader = comm.ExecuteReader();
-                        while (nwReader.Read())
-                        {
-                            String[] n = new String[22];
-                            n[0] = nwReader["id_ms_resguardo"].ToString();
-                            n[1] = nwReader["Marca"].ToString();
-                            n[2] = nwReader["Descripcion"].ToString();
-                            n[3] = nwReader["Num Economico"].ToString();
-                            n[4] = nwReader["Modelo"].ToString();
-                            n[5] = nwReader["Num de Serie"].ToString();
-                            n[6] = nwReader["Resguardado a"].ToString();
-                            n[7] = nwReader["Fecha de asignacion"].ToString();
-                            n[8] = nwReader["Usuario que lo asigno"].ToString();
-                            n[9] = nwReader["Fecha de desasignacion"].ToString();
-                            n[10] = nwReader["Usuario que lo desasigno"].ToString();
-                            n[11] = nwReader["Obs de resguardo"].ToString();
-                            n[12] = nwReader["Empresa Dueña"].ToString();
-                            n[13] = nwReader["Ubicacion"].ToString();
-                            n[14] = nwReader["Estatus del equipo"].ToString();
-                            n[15] = nwReader["Fecha de registro"].ToString();
-                            n[16] = nwReader["Empleado que registro el equipo"].ToString();
-                            n[17] = nwReader["Pedido de compra"].ToString();
-                            n[18] = nwReader["Fecha de baja del equipo"].ToString();
-                            n[19] = nwReader["Empleado que dio de baja el equipo"].ToString();
-                            n[20] = nwReader["Observaciones de Baja"].ToString();
-                            n[21] = nwReader["Observaciones de Sistemas"].ToString();
-
-                            lista_historico.Add(n);
-                        }
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show("Error en la busqueda de historico de activos.\n\nMensaje: " + ex.Message, "Información del Equipo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
         }
 
@@ -328,9 +275,20 @@ namespace Resguardos
                     Workbook librosTrabajo = aplicacion.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
                     Worksheet hojaTrabajo = (Worksheet)librosTrabajo.Worksheets.get_Item(1);
                     int iCol = 0;
+                    int iCol2 = 0;
                     foreach (DataGridViewColumn column in dataGridView1.Columns)
+                    {
                         if (column.Visible)
-                            hojaTrabajo.Cells[1, ++iCol] = column.HeaderText;
+                        {
+                            ++iCol;
+                            iCol2 = iCol;
+                            hojaTrabajo.Cells[1, iCol2].Borders.LineStyle = XlLineStyle.xlContinuous;
+                            hojaTrabajo.Cells[1, iCol2].EntireRow.Font.Bold = true;
+                            hojaTrabajo.Cells[1, iCol2].Interior.Color = XlRgbColor.rgbGray;
+                            hojaTrabajo.Cells[1, iCol2].Font.Color = Color.White;
+                            hojaTrabajo.Cells[1, iCol2] = column.HeaderText;
+                        }
+                    }
                     for (int i = 0; i < grd.Rows.Count - 1; i++)
                     {
                         for (int j = 0; j < grd.Columns.Count; j++)
@@ -341,10 +299,12 @@ namespace Resguardos
                             }
                             else
                             {
+                                hojaTrabajo.Cells[i + 2, j + 1].Borders.LineStyle = XlLineStyle.xlContinuous;
                                 hojaTrabajo.Cells[i + 2, j + 1] = grd.Rows[i].Cells[j].Value.ToString();
                             }
                         }
                     }
+                    aplicacion.ActiveWindow.DisplayGridlines = false;
                     librosTrabajo.SaveAs(fichero.FileName, XlFileFormat.xlWorkbookNormal);
                     aplicacion.Quit();
                     MessageBox.Show("Resguardo Guardado.", "Resguardos", MessageBoxButtons.OK, MessageBoxIcon.Information);
