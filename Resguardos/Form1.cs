@@ -17,6 +17,7 @@ namespace Resguardos
         /*
          V10.7.1
         - Se amplia la busqueda a todas las categorias
+        - Se agrega opcion de copiar informacion del equipo con la letra C
         */
 
         private String versiontext = "10.7.1";
@@ -317,6 +318,20 @@ namespace Resguardos
             if (!String.IsNullOrEmpty(buscar.Text))
             {
                 ExportarDataGridViewExcel(dataGridView1);
+            }
+        }
+
+        private void dataGridView1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode==Keys.C)
+            {
+                String tipo = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                String economico = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                String marca = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                String modelo = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+                String serie = dataGridView1.CurrentRow.Cells[4].Value.ToString();
+                label2.Text = "Información del equipo copiada al portapapeles.";
+                Clipboard.SetText("Equipo: "+tipo+"\nEconomico: "+economico+"\nMarca: "+marca+"\nModelo: "+modelo+"\nNúm. Serie: "+serie);
             }
         }
     }

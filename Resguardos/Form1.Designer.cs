@@ -94,6 +94,7 @@ namespace Resguardos
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyUp);
             // 
             // economico
             // 
@@ -161,7 +162,7 @@ namespace Resguardos
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Resguardos.Properties.Resources.load_save;
-            this.pictureBox1.Location = new System.Drawing.Point(349, 51);
+            this.pictureBox1.Location = new System.Drawing.Point(364, 51);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(268, 255);
             this.pictureBox1.TabIndex = 9;
