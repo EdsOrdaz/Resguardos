@@ -15,7 +15,8 @@ namespace Resguardos
     public partial class Form1 : Form
     {
         /*
-         V10.7.1
+         V10.7.1 r2
+        - Se agrega columna de registro en resfuardo y desasignacion en historico
         - Se amplia la busqueda a todas las categorias
         - Se agrega opcion de copiar informacion del equipo con la letra C
         */
@@ -146,7 +147,7 @@ namespace Resguardos
 
                 if (economico.Contains(buscar.Text.ToUpper()) || serie.Contains(buscar.Text.ToUpper()) || nombre.Contains(buscar.Text.ToUpper()))
                 {
-                    dataGridView1.Rows.Add(activo[4], activo[1], activo[24], activo[25], activo[14], activo[12], activo[9]);
+                    dataGridView1.Rows.Add(activo[4], activo[1], activo[24], activo[25], activo[14], activo[12], activo[17], activo[9]);
                 }
             }
         }
@@ -331,7 +332,7 @@ namespace Resguardos
                 String modelo = dataGridView1.CurrentRow.Cells[3].Value.ToString();
                 String serie = dataGridView1.CurrentRow.Cells[4].Value.ToString();
                 label2.Text = "Información del equipo copiada al portapapeles.";
-                Clipboard.SetText("Equipo: "+tipo+"\nEconomico: "+economico+"\nMarca: "+marca+"\nModelo: "+modelo+"\nNúm. Serie: "+serie);
+                Clipboard.SetText("\t- EQUIPO: "+tipo+"\n\t- ECONÓMICO: "+economico+"\n\t- MARCA: "+marca+"\n\t- MODELO: "+modelo+"\n\t- NÚM DE SERIE: "+serie);
             }
         }
     }

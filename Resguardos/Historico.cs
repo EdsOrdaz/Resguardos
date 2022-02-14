@@ -51,7 +51,7 @@ namespace Resguardos
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex != -1)
+            if (e.RowIndex != -1 && !string.IsNullOrEmpty(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()))
             {
                 Clipboard.SetText(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
             }
@@ -201,7 +201,7 @@ namespace Resguardos
 
                 if (economico.Contains(buscar.Text.ToUpper()) || serie.Contains(buscar.Text.ToUpper()) || nombre.Contains(buscar.Text.ToUpper()))
                 {
-                    dataGridView1.Rows.Add(activo[0], activo[3], activo[1], activo[4], activo[5], activo[7], activo[6]);
+                    dataGridView1.Rows.Add(activo[0], activo[3], activo[1], activo[4], activo[5], activo[7], activo[9], activo[6]);
                 }
             }
         }

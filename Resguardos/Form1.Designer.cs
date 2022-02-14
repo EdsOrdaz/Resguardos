@@ -33,13 +33,6 @@ namespace Resguardos
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.economico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subcategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaasignacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buscar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -48,6 +41,14 @@ namespace Resguardos
             this.exportarAExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RevisarVersion = new System.ComponentModel.BackgroundWorker();
             this.label2 = new System.Windows.Forms.Label();
+            this.economico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subcategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaasignacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecharegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -82,6 +83,7 @@ namespace Resguardos
             this.modelo,
             this.serie,
             this.fechaasignacion,
+            this.fecharegistro,
             this.nombre});
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(2, 48);
@@ -95,50 +97,6 @@ namespace Resguardos
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.dataGridView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyUp);
-            // 
-            // economico
-            // 
-            this.economico.HeaderText = "Economico";
-            this.economico.Name = "economico";
-            this.economico.ReadOnly = true;
-            // 
-            // subcategoria
-            // 
-            this.subcategoria.HeaderText = "Subcategoria";
-            this.subcategoria.Name = "subcategoria";
-            this.subcategoria.ReadOnly = true;
-            // 
-            // marca
-            // 
-            this.marca.HeaderText = "Marca";
-            this.marca.Name = "marca";
-            this.marca.ReadOnly = true;
-            // 
-            // modelo
-            // 
-            this.modelo.HeaderText = "Modelo";
-            this.modelo.Name = "modelo";
-            this.modelo.ReadOnly = true;
-            // 
-            // serie
-            // 
-            this.serie.HeaderText = "Serie";
-            this.serie.Name = "serie";
-            this.serie.ReadOnly = true;
-            // 
-            // fechaasignacion
-            // 
-            this.fechaasignacion.HeaderText = "Asignación";
-            this.fechaasignacion.Name = "fechaasignacion";
-            this.fechaasignacion.ReadOnly = true;
-            this.fechaasignacion.Width = 80;
-            // 
-            // nombre
-            // 
-            this.nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
             // 
             // buscar
             // 
@@ -214,6 +172,57 @@ namespace Resguardos
             this.label2.Text = "label2";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // economico
+            // 
+            this.economico.HeaderText = "Economico";
+            this.economico.Name = "economico";
+            this.economico.ReadOnly = true;
+            // 
+            // subcategoria
+            // 
+            this.subcategoria.HeaderText = "Subcategoria";
+            this.subcategoria.Name = "subcategoria";
+            this.subcategoria.ReadOnly = true;
+            // 
+            // marca
+            // 
+            this.marca.HeaderText = "Marca";
+            this.marca.Name = "marca";
+            this.marca.ReadOnly = true;
+            // 
+            // modelo
+            // 
+            this.modelo.HeaderText = "Modelo";
+            this.modelo.Name = "modelo";
+            this.modelo.ReadOnly = true;
+            // 
+            // serie
+            // 
+            this.serie.HeaderText = "Serie";
+            this.serie.Name = "serie";
+            this.serie.ReadOnly = true;
+            // 
+            // fechaasignacion
+            // 
+            this.fechaasignacion.HeaderText = "Asignación";
+            this.fechaasignacion.Name = "fechaasignacion";
+            this.fechaasignacion.ReadOnly = true;
+            this.fechaasignacion.Width = 80;
+            // 
+            // fecharegistro
+            // 
+            this.fecharegistro.HeaderText = "Registro";
+            this.fecharegistro.Name = "fecharegistro";
+            this.fecharegistro.ReadOnly = true;
+            this.fecharegistro.Width = 80;
+            // 
+            // nombre
+            // 
+            this.nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,16 +261,17 @@ namespace Resguardos
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem historicoDeEquiposToolStripMenuItem;
+        private System.ComponentModel.BackgroundWorker RevisarVersion;
+        private System.Windows.Forms.ToolStripMenuItem exportarAExcelToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn economico;
         private System.Windows.Forms.DataGridViewTextBoxColumn subcategoria;
         private System.Windows.Forms.DataGridViewTextBoxColumn marca;
         private System.Windows.Forms.DataGridViewTextBoxColumn modelo;
         private System.Windows.Forms.DataGridViewTextBoxColumn serie;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaasignacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecharegistro;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.ComponentModel.BackgroundWorker RevisarVersion;
-        private System.Windows.Forms.ToolStripMenuItem exportarAExcelToolStripMenuItem;
-        private System.Windows.Forms.Label label2;
     }
 }
 
