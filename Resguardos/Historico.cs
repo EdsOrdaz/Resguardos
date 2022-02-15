@@ -158,9 +158,17 @@ namespace Resguardos
                         n[4] = nwReader["Modelo"].ToString();
                         n[5] = nwReader["Num de Serie"].ToString();
                         n[6] = nwReader["Resguardado a"].ToString();
-                        n[7] = nwReader["Fecha de asignacion"].ToString();
+
+                        DateTime asignacion = Convert.ToDateTime(nwReader["Fecha de asignacion"]);
+                        n[7] = asignacion.ToString("yyyy/MM/dd");
+
                         n[8] = nwReader["Usuario que lo asigno"].ToString();
-                        n[9] = nwReader["Fecha de desasignacion"].ToString();
+                        n[9] = "ASIGNADO";
+                        if (nwReader["Fecha de desasignacion"] != DBNull.Value)
+                        {
+                            DateTime desasignacion = Convert.ToDateTime(nwReader["Fecha de desasignacion"]);
+                            n[9] = desasignacion.ToString("yyyy/MM/dd");
+                        }
                         n[10] = nwReader["Usuario que lo desasigno"].ToString();
                         n[11] = nwReader["Obs de resguardo"].ToString();
                         n[12] = nwReader["Empresa Dueña"].ToString();

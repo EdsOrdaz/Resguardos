@@ -15,14 +15,17 @@ namespace Resguardos
     public partial class Form1 : Form
     {
         /*
+         V10.7.2
+        - Se modifica fecha (AAAA/MM/DD) para ordernase correctamente.
+
          V10.7.1 r2
         - Se agrega columna de registro en resfuardo y desasignacion en historico
         - Se amplia la busqueda a todas las categorias
         - Se agrega opcion de copiar informacion del equipo con la letra C
         */
 
-        private String versiontext = "10.7.1";
-        private String version = "e32955e68c67c2be6bbc7567f3e9601f";
+        private String versiontext = "10.7.2";
+        private String version = "f125a882ea1eaa692b9979092d3a13f4";
         public static String conexionsqllast = "server=148.223.153.37,5314; database=InfEq;User ID=eordazs;Password=Corpame*2013; integrated security = false ; MultipleActiveResultSets=True";
 
         public static String servivor = "148.223.153.43\\MSSQLSERVER1";
@@ -93,12 +96,16 @@ namespace Resguardos
                         n[9] = nwReader["Nombre de Resguardatario"].ToString();
                         n[10] = nwReader["CC"].ToString();
                         n[11] = nwReader["Observaciones"].ToString();
-                        n[12] = nwReader["Fecha Asignación"].ToString();
+
+                        DateTime asignacion = Convert.ToDateTime(nwReader["Fecha Asignación"]);
+                        n[12] = asignacion.ToString("yyyy/MM/dd");
                         n[13] = nwReader["capitalizable"].ToString();
                         n[14] = nwReader["No. Serie"].ToString();
                         n[15] = nwReader["Empresa Dueña"].ToString();
                         n[16] = nwReader["Usuario Reg. Equipo"].ToString();
-                        n[17] = nwReader["Fecha Reg. Equipo"].ToString();
+
+                        DateTime registro = Convert.ToDateTime(nwReader["Fecha Reg. Equipo"]);
+                        n[17] = registro.ToString("yyyy/MM/dd");
                         n[18] = nwReader["Usuario Mod. Equipo"].ToString();
                         n[19] = nwReader["Fecha Mod. Equipo"].ToString();
                         n[20] = nwReader["Usuario Alta Resg."].ToString();
