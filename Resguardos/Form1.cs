@@ -24,8 +24,8 @@ namespace Resguardos
         - Se agrega opcion de copiar informacion del equipo con la letra C
         */
 
-        private String versiontext = "10.7.2";
-        private String version = "f125a882ea1eaa692b9979092d3a13f4";
+        private String versiontext = "10.7.21";
+        private String version = "de4688871a3ec16124b9806fdef39207c97a9c98";
         public static String conexionsqllast = "server=148.223.153.37,5314; database=InfEq;User ID=eordazs;Password=Corpame*2013; integrated security = false ; MultipleActiveResultSets=True";
 
         public static String servivor = "148.223.153.43\\MSSQLSERVER1";
@@ -97,8 +97,13 @@ namespace Resguardos
                         n[10] = nwReader["CC"].ToString();
                         n[11] = nwReader["Observaciones"].ToString();
 
-                        DateTime asignacion = Convert.ToDateTime(nwReader["Fecha Asignación"]);
-                        n[12] = asignacion.ToString("yyyy/MM/dd");
+                        n[12] = "SIN ASIGNAR";
+                        if (nwReader["Fecha Asignación"] != DBNull.Value)
+                        {
+                            DateTime asignacion = Convert.ToDateTime(nwReader["Fecha Asignación"]);
+                            n[12] = asignacion.ToString("yyyy/MM/dd");
+                        }
+
                         n[13] = nwReader["capitalizable"].ToString();
                         n[14] = nwReader["No. Serie"].ToString();
                         n[15] = nwReader["Empresa Dueña"].ToString();
@@ -339,7 +344,40 @@ namespace Resguardos
                 String modelo = dataGridView1.CurrentRow.Cells[3].Value.ToString();
                 String serie = dataGridView1.CurrentRow.Cells[4].Value.ToString();
                 label2.Text = "Información del equipo copiada al portapapeles.";
-                Clipboard.SetText("\t- EQUIPO: "+tipo+"\n\t- ECONÓMICO: "+economico+"\n\t- MARCA: "+marca+"\n\t- MODELO: "+modelo+"\n\t- NÚM DE SERIE: "+serie);
+                Clipboard.SetText("- EQUIPO: "+tipo+"\n- ECONÓMICO: "+economico+"\n- MARCA: "+marca+"\n- MODELO: "+modelo+"\n- NÚM DE SERIE: "+serie);
+            }
+            if(e.KeyCode==Keys.H)
+            {
+                String tipo = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                String economico = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                String marca = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                String modelo = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+                String serie = dataGridView1.CurrentRow.Cells[4].Value.ToString();
+                label2.Text = "Información del equipo copiada al portapapeles en HTML.";
+
+                Clipboard.SetText(@"Version:1.0
+                        StartHTML:000125
+                        EndHTML:000260
+                        StartFragment:000209
+                        EndFragment:000222
+                        <HTML>
+                        <style>
+                        <head>
+                        <title>Resguardos</title>
+                        </head>
+                        <body>
+                        <div style='font-size:11pt;font-family:Calibri;color:#2F5496;'>
+                        <ul>
+                        <li><b>EQUIPO:</b> " + tipo + @"</li>
+                        <li><b>ECONOMICO:</b> " + economico + @"</li>
+                        <li><b>MARCA:</b> " + marca + @"</li>
+                        <li><b>MODELO:</b> " + modelo + @"</li>
+                        <li><b>NÚM SERIE:</b> " + serie + @"</li>
+                        </ul>
+                        </div>
+                        </body>
+                        </html>",
+                            TextDataFormat.Html);
             }
         }
     }
